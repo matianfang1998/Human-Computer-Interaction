@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
+    <title>Image Search</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <!--js files-->
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/favorite.js"></script>
+
+
+    <!--css files-->
+    <link rel="stylesheet" href="css/index.css" type="text/css">
+    <link rel="stylesheet" href="css/default.css" type="text/css">
+    <link rel="stylesheet" href="css/fileinput.css" media="all" type="text/css" />
+
+</head>
+
+<body style="background: white;">
+    <div class=" navbar">
+        <div class="navbar-inner">
+            <h1 class="text-center" style="color:black;"><b>IMAGE SEARCH</b>&nbsp;&nbsp;&nbsp;<a class="navbar-brand"
+                    href="">
+                    <img src="/images/logo.svg" style="height:40px;"></a>
+            </h1>
+        </div>
+    </div>
+    <div><br></br><br></br></div>
+
+
+    <center></center>
+
+    <!--file input-->
+
+    <div id="main" class="container">
+        <table class="table" style="background: white;border: 1px solid beige;box-shadow: 3px 5px 15px 0px rgba(0, 0, 0, 0.2), 3px 5px 15px 0 rgba(0, 0, 0, 0.19);
+">
+            <form method=post enctype="multipart/form-data">
+                <div class="form-group">
+                    <input id="file-1" type="file" class="file" data-overwrite-initial="false" required>
+                    <br>
+                    <button type="submit" id="search-btn" class="btn btn-primary" onclick="search()">Search</button>
+                </div>
+            </form>
+        </table>
+    </div>
+
+
+    <!--loading-->
+    <center>
+        <img id="load" src="/images/ajax-loader.gif" style="height:100px;weight:100px;display:none;">
+    </center>
+
+
+    <div id="main" class="container" data-target="#myScrollspy">
+        <!--search result-->
+        <div id="search-result" class="panel panel-default">
+            <!--sort-->
+            <div class="panel-heading">
+                <p>Search Result             
+                    <a>in 10000 s</a>
+                </p>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Sort
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="panel-body">
+                <div id="table" class="table" style="background: white; border: 1px ;display:none;">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail">
+                                <div class="result-image-border">
+                                    <img id="img0" class="result-image" src="" alt="..." width="200" height="200">
+                                </div>
+                                <div class="caption">
+                                    <p id="img-tag-0">标签</p>
+                                    <p>
+                                        <button id="likeImg0" onclick="onClickImgLike(this)"
+                                            class="btn btn-primary">收藏</button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail">
+                                <div class="result-image-border">
+                                    <img id="img1" class="result-image" src="" alt="..." width="200" height="200">
+                                </div>
+                                <div class="caption">
+                                    <p id="img-tag-1">标签</p>
+                                    <p>
+                                        <button id="likeImg1" onclick="onClickImgLike(this)"
+                                            class="btn btn-primary">收藏</button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail">
+                                <div class="result-image-border">
+                                    <img id="img2" class="result-image" src="" alt="..." width="200" height="200">
+                                </div>
+                                <div class="caption">
+                                    <p id="img-tag-2">标签</p>
+                                    <p>
+                                        <button id="likeImg2" onclick="onClickImgLike(this)"
+                                            class="btn btn-primary">收藏</button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail">
+                                <div class="result-image-border">
+                                    <img id="img3" class="result-image" src="" alt="..." width="200" height="200">
+                                </div>
+                                <div class="caption">
+                                    <p id="img-tag-3">标签</p>
+                                    <p>
+                                        <button id="likeImg3" onclick="onClickImgLike(this)"
+                                            class="btn btn-primary">收藏</button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail">
+                                <div class="result-image-border">
+                                    <img id="img4" class="result-image" src="" alt="..." width="200" height="200">
+                                </div>
+                                <div class="caption">
+                                    <p id="img-tag-4">标签</p>
+                                    <p>
+                                        <button id="likeImg4" onclick="onClickImgLike(this)"
+                                            class="btn btn-primary">收藏</button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail">
+                                <div class="result-image-border">
+                                    <img id="img5" class="result-image" src="" alt="..." width="200" height="200">
+                                </div>
+                                <div class="caption">
+                                    <p id="img-tag-5">标签</p>
+                                    <p>
+                                        <button id="likeImg5" onclick="onClickImgLike(this)"
+                                            class="btn btn-primary">收藏</button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail">
+                                <div class="result-image-border">
+                                    <img id="img6" class="result-image" src="" alt="..." width="200" height="200">
+                                </div>
+                                <div class="caption">
+                                    <p id="img-tag-6">标签</p>
+                                    <p>
+                                        <button id="likeImg6" onclick="onClickImgLike(this)"
+                                            class="btn btn-primary">收藏</button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail">
+                                <div class="result-image-border">
+                                    <img id="img7" class="result-image" src="" alt="..." width="200" height="200">
+                                </div>
+                                <div class="caption">
+                                    <p id="img-tag-7">标签</p>
+                                    <p>
+                                        <button id="likeImg7" onclick="onClickImgLike(this)"
+                                            class="btn btn-primary">收藏</button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail">
+                                <div class="result-image-border">
+                                    <img id="img8" class="result-image" src="" alt="..." width="200" height="200">
+                                </div>
+                                <div class="caption">
+                                    <p id="img-tag-8">标签</p>
+                                    <p>
+                                        <button id="likeImg8" onclick="onClickImgLike(this)"
+                                            class="btn btn-primary">收藏</button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Favorite-->
+        <div id="favorite-image" class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Favorite Images</h3>
+            </div>
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                </ol>
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                    <div class="item active" align="center">
+                        <img id="favImg0" src="favorites/im2.jpg" alt="First">
+                    </div>
+                    <div class="item" align="center">
+                        <img id="favImg1" src="favorites/im3.jpg" alt="Second">
+                    </div>
+                    <div class="item" align="center">
+                        <img id="favImg2" src="favorites/im4.jpg" alt="Third">
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!--footer-->
+    <footer class="navbar-fixed-bottom">
+        <div class="container">
+            内容区域
+        </div>
+    </footer>
+
+    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"
+        integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+        crossorigin="anonymous"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+        integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/fileinput.js"></script>
+    <script type="text/javascript" src="js/fileinput_locale_zh.js"></script>
+
+    <script>
+        $("#file-1").fileinput({
+	        uploadUrl: '#', // you must set a valid URL here else you will get an error
+            showUpload: false,
+	        allowedFileExtensions : ['jpg', 'png','gif'],
+	        overwriteInitial: false,
+	        maxFileSize: 10000,
+	        maxFilesNum: 1,
+	        //allowedFileTypes: ['image', 'video', 'flash'],
+		});
+    </script>
+</body>
+
+</html>
