@@ -1,22 +1,22 @@
-// 初始化喜爱列表
+// 初始化喜爱列表,id=0不可被删除
 var favorite_list = [
     {
-        id:2,
-        src:"favorites/im2.jpg"
+        id:0,
+        src:"favorites/favorite0.jpg"
     },
     {
-        id:3,
-        src:"favorites/im3.jpg"
+        id:0,
+        src:"favorites/favorite1.jpg"
     },
     {
-        id:4,
-        src:"favorites/im4.jpg"
+        id:0,
+        src:"favorites/favorite2.jpg"
     }
 ];
 
-localStorage.setItem(2, "likeImg");
-localStorage.setItem(3, "likeImg");
-localStorage.setItem(4, "likeImg");
+localStorage.setItem(-1, "likeImg");
+localStorage.setItem(0, "likeImg");
+localStorage.setItem(1, "likeImg");
 
 const favorite_img_num = 3;
 
@@ -51,7 +51,10 @@ function onClickImgLike(obj) {
 
         localStorage.removeItem(imgId)
         favorite_list.remove(imgId)
-        console.log(favorite_list)
+
+        // 修改界面
+        document.getElementById("likeImg"+String(btnId)+"-icon").className="glyphicon glyphicon-star-empty";
+        document.getElementById("likeImg"+String(btnId)+"-text").innerText = "收藏";
     }
     else {
         // 未在喜欢列表中，加入列表
@@ -63,6 +66,10 @@ function onClickImgLike(obj) {
             src: "result/im" + String(imgId) + ".jpg",
         }
         favorite_list.push(imgLike)
+        // 修改界面显示
+        iconId = "likeImg"+String(btnId)+"-icon";
+        document.getElementById("likeImg"+String(btnId)+"-icon").className="glyphicon glyphicon-star";
+        document.getElementById("likeImg"+String(btnId)+"-text").innerText = "已收藏";
     }
     updateFavoriteList();
 }
